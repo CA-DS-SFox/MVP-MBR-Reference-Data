@@ -7,6 +7,7 @@ library(googlesheets4)
 in_wbook <- 'https://docs.google.com/spreadsheets/d/1SIFJPCA8duV7qFnq6u1eq8o8tHEXMMFGCVa4Ea6nCWc/edit#gid=482107966'
 in_sheet <- 'Member List (1)'
 
+print(paste0(' ... Reading ', in_sheet))
 df_in <- googlesheets4::read_sheet(in_wbook, sheet = in_sheet)
 
 # -------------------------------------------------------------------------
@@ -28,5 +29,11 @@ df_out <- df_in %>%
 
 out_wbook <- 'https://docs.google.com/spreadsheets/d/1FEcmgQmYk_Dmf9IgjM1CdYjSFTMQzHB2DyiMpzpbCas/edit#gid=405822670'
 out_sheet <- 'reference_mbr'
+print(paste0(' ... Writing to ', out_sheet, ' ',nrow(df_out),' records'))
 
 googlesheets4::write_sheet(df_out, out_wbook, out_sheet)
+
+
+# -------------------------------------------------------------------------
+print(' ... Finished !')
+
