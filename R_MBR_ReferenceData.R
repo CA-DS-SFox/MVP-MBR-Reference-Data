@@ -1,4 +1,5 @@
 library(tidyverse)
+library(arrow)
 library(googlesheets4)
 
 # -------------------------------------------------------------------------
@@ -27,8 +28,13 @@ df_out <- df_in %>%
 out_wbook <- 'https://docs.google.com/spreadsheets/d/1jmzZXW3gKeG_e3l_x2ECMQ1sE84AeSj8UiAlknU5-us/edit#gid=222075267'
 out_sheet <- 'reference_mbr'
 print(paste0(' ... Writing to ', out_sheet, ' ',nrow(df_out),' records'))
-
 googlesheets4::write_sheet(df_out, out_wbook, out_sheet)
+
+# also save to a parquet file for manual uploading to S3
+out_path <- 'G:/Shared drives/CA - Interim Connect Report Log Files & Guidance/Interim Reports/Reference Tables/'
+out_file <- 'reference_mbr.parquet'
+print(paste0(' ... Writing to ', paste0(out_path, out_file), ' ',nrow(df_out),' records'))
+write_parquet(df_out, paste0(out_path, out_file))
 
 # -------------------------------------------------------------------------
 # send to reference data V2
