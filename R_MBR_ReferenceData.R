@@ -18,8 +18,9 @@ df_out <- df_in %>%
   select(member_id = Membership_Number__c,
          ref.lss.fullname = Name,
          ref.lss.shortname = Short_Name__c) %>% 
+  mutate(upload_date = as.character(Sys.Date())) %>% 
   mutate(member_aws = str_replace(member_id, '/',''), .after='member_id') %>% 
-  select(member_aws, ref.lss.fullname, ref.lss.shortname) %>% 
+  select(member_aws, ref.lss.fullname, ref.lss.shortname, upload_date) %>% 
   identity()
 
 # Reference Data - Calls dataset - 2023-05-24 onwards
